@@ -26,6 +26,7 @@ for pdf in $(ls pdf); do
   images_total=$(pdfimages -list "pdf/$pdf" | sed 1,2d | wc -l)
   images_finished=$(ls tmp|grep $(basename "$pdf" .pdf)|grep -v '\.txt$'|wc -l)
   if test "$images_total" -eq "$images_finished"; then
+    echo "The images have already been extracted from ${pdf}."
     continue
   elif test "$images_total" -gt "$images_finished"; then
     echo 'Something is wrong with the tmp directory;'
@@ -38,6 +39,6 @@ for pdf in $(ls pdf); do
     echo 'Something really weird happened.'
     echo "I was on the file \"$pdf\"."
     echo "It seems to contain $images_total images."
-    echo "The tmp directory contains $images_finished images from \"$pdf\"."
+    echo "The tmp directory contains $images_finished images from {$pdf}."
   fi
 done
