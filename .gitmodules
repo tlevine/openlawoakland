@@ -1,0 +1,3 @@
+[submodule "pdf"]
+	path = pdf
+	url = git@github.com:tlevine/openlawoakland-pdf.git
