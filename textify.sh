@@ -28,12 +28,12 @@ for pdf in $(ls pdf); do
   if test "$images_total" -eq "$images_finished"; then
     echo "The images have already been extracted from ${pdf}."
     continue
-  elif test "$images_total" -gt "$images_finished"; then
+  elif test "$images_total" -lt "$images_finished"; then
     echo 'Something is wrong with the tmp directory;'
     echo "$pdf only has $images_total images, but the"
     echo "tmp directory has $images_finished images from ${pdf}."
     exit 1
-  elif test "$images_total" -lt "$images_finished"; then
+  elif test "$images_total" -gt "$images_finished"; then
     extract_images "$pdf"
   else
     echo 'Something really weird happened.'
