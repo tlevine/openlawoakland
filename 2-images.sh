@@ -21,25 +21,39 @@ extract_images() {
   )
 }
 
-mkdir -p tmp
-for pdf in $(ls pdf); do
-  # If it has already run, don't run.
-  images_total=$(pdfimages -list "pdf/$pdf" | sed 1,2d | wc -l)
-  images_finished=$(ls tmp|grep $(basename "$pdf" .pdf)|grep -v '\.txt$'|wc -l)
-  if test "$images_total" -eq "$images_finished"; then
-    echo "The images have already been extracted from ${pdf}."
-    continue
-  elif test "$images_total" -lt "$images_finished"; then
-    echo 'Something is wrong with the tmp directory;'
-    echo "$pdf only has $images_total images, but the"
-    echo "tmp directory has $images_finished images from ${pdf}."
-    exit 1
-  elif test "$images_total" -gt "$images_finished"; then
-    extract_images "$pdf"
-  else
-    echo 'Something really weird happened.'
-    echo "I was on the file \"$pdf\"."
-    echo "It seems to contain $images_total images."
-    echo "The tmp directory contains $images_finished images from {$pdf}."
-  fi
-done
+create_images() {
+  mkdir -p tmp
+  for pdf in $(ls pdf); do
+    # If it has already run, don't run.
+    images_total=$(pdfimages -list "pdf/$pdf" | sed 1,2d | wc -l)
+    images_finished=$(ls tmp|grep $(basename "$pdf" .pdf)|grep -v '\.txt$'|wc -l)
+    if test "$images_total" -eq "$images_finished"; then
+      echo "The images have already been extracted from ${pdf}."
+      continue
+    elif test "$images_total" -lt "$images_finished"; then
+      echo 'Something is wrong with the tmp directory;'
+      echo "$pdf only has $images_total images, but the"
+      echo "tmp directory has $images_finished images from ${pdf}."
+      exit 1
+    elif test "$images_total" -gt "$images_finished"; then
+      extract_images "$pdf"
+    else
+      echo 'Something really weird happened.'
+      echo "I was on the file \"$pdf\"."
+      echo "It seems to contain $images_total images."
+      echo "The tmp directory contains $images_finished images from {$pdf}."
+    fi
+  done
+}
+
+# So lexicographic sort works
+rename_images() {
+  for file in $(ls 'tmp/{volume1,volume2,planning}-[0-9][0-9][0-9]-*'); do
+    newfile=$(echo "$file"|sed 's/-/-0/')
+    mv "$file" "$newfile"
+  done
+}
+
+# Go
+create_images
+rename_images
