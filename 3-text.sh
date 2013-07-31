@@ -14,3 +14,8 @@ for image in $(ls tmp|sed -n '/\.pbm$/ s/\.pbm$//p'); do
     tesseract "tmp/${image}.pbm" "tmp/${image}" -l eng
   fi
 done
+
+# Combine into one file
+for volume in volume1 volume2 planning; do
+  cat "tmp/${volume}-*.txt" > "tmp/${volume}.txt"
+done
