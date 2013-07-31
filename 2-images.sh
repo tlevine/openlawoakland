@@ -48,7 +48,7 @@ create_images() {
 
 # So lexicographic sort works
 rename_images() {
-  for file in $(ls 'tmp/{volume1,volume2,planning}-[0-9][0-9][0-9]-*'); do
+  for file in $(ls tmp/{volume1,volume2,planning}-[0-9][0-9][0-9]-*); do
     newfile=$(echo "$file"|sed 's/-/-0/')
     mv "$file" "$newfile"
   done
