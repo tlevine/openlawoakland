@@ -3,6 +3,7 @@ import re
 
 chapter_regex = re.compile(r'^Chapter ([0-9]+\.[0-9]+)$')
 section_regex = re.compile(r'^([0-9]+\.[0-9]+\.[0-9]+)(.*)$')
+citation_regex = re.compile(r'([0-9]+\.[0-9]+\.[0-9]+)')
 
 def chunk(fp):
     '''
@@ -35,3 +36,12 @@ def chunk(fp):
         else:
             # The first section has yet to start.
             pass
+
+def network(chunks):
+    '''
+    >>> list(network({'8.03.050': 'Also see OMC Section 5.34.051.)', '5.34.051': 'pursuant to Section 5.34.080.'}))
+    [('8.03.050','5.34.051'),('5.34.051','5.34.080')]
+    '''
+    for k,v in chunks.items():
+        for crossreference in re.findall(citation_regex, v):
+            yield k, crossreference
