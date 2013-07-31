@@ -21,6 +21,7 @@ extract_images() {
   )
 }
 
+mkdir -p tmp
 for pdf in $(ls pdf); do
   # If it has already run, don't run.
   images_total=$(pdfimages -list "pdf/$pdf" | sed 1,2d | wc -l)
