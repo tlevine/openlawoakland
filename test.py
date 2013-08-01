@@ -1,7 +1,7 @@
 chunks = __import__('4-chunks')
 
 def test_chunk():
-    chunks.chunk('''
+    observed = chunks.chunk('''
 Chapter 10.32
 
 STOPPING, STANDING AND PARKING IN
@@ -144,3 +144,23 @@ official cars between the hours of eight a.m.
 
 (Oakland Supp No 19, 1-03)
 ''')
+    expected_keys = {
+        '10.32',
+        '10.32.010',
+        '10.32.150',
+        '10.32.160',
+        '10.32.170',
+        '10.32.180',
+        '10.32.190',
+        '10.32.200',
+        '10.32.010',
+        '10.32.020',
+    }
+    n.assert
+
+
+
+def test_network():
+    observed = list(lib.network({'8.03.050': 'Also see OMC Section 5.34.051.)', '5.34.051': 'pursuant to Section 5.34.080.'}))
+    expected = [('8.03.050','5.34.051'),('5.34.051','5.34.080')]
+    n.assert_list_equal(observed, expected)
