@@ -36,6 +36,7 @@ def chunk(fp):
         else:
             # The first section has yet to start.
             pass
+    return chunks
 
 def network(chunks):
     '''

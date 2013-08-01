@@ -1,7 +1,10 @@
-chunks = __import__('4-chunks')
+# vim :set fileencoding=utf-8
+import nose.tools as n
+import StringIO
+import lib
 
 def test_chunk():
-    observed = chunks.chunk('''
+    fp = StringIO.StringIO('''
 Chapter 10.32
 
 STOPPING, STANDING AND PARKING IN
@@ -144,6 +147,7 @@ official cars between the hours of eight a.m.
 
 (Oakland Supp No 19, 1-03)
 ''')
+    observed = lib.chunk(fp)
     expected_keys = {
         '10.32',
         '10.32.010',
@@ -156,11 +160,9 @@ official cars between the hours of eight a.m.
         '10.32.010',
         '10.32.020',
     }
-    n.assert
-
-
+    n.assert_true(expected_keys.issubset(observed.keys()))
 
 def test_network():
-    observed = list(lib.network({'8.03.050': 'Also see OMC Section 5.34.051.)', '5.34.051': 'pursuant to Section 5.34.080.'}))
-    expected = [('8.03.050','5.34.051'),('5.34.051','5.34.080')]
-    n.assert_list_equal(observed, expected)
+    observed = set(lib.network({'8.03.050': 'Also see OMC Section 5.34.051.)', '5.34.051': 'pursuant to Section 5.34.080.'}))
+    expected = {('8.03.050','5.34.051'),('5.34.051','5.34.080')}
+    n.assert_set_equal(observed, expected)
