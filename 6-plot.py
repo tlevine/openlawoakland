@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import json
 
 import matplotlib.pyplot as plt
 import networkx as nx
