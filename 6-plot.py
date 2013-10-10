@@ -11,7 +11,8 @@ nodes = json.load(open(os.path.join('tmp', 'chunks.json')))
 
 def ego():
     '''
-    This node is deceptively connected because it's from the index (page 750).
+    This node is deceptively connected because it's from the index
+    (page 750 of volume2.pdf).
     '''
     g_9_56_090 = nx.ego_graph(g, '9.56.090')
     nx.draw_spring(g_9_56_090)
