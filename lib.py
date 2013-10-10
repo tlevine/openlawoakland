@@ -25,7 +25,7 @@ def chunk(fp):
     while True:
         line = fp.readline()
 
-        if line == '':
+        if line in {'', 'CALIFORNIA CITIES'}:
             # Stop at the end of the file.
             break
 
