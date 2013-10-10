@@ -5,6 +5,17 @@ chapter_regex = re.compile(r'^Chapter ([0-9]+\.[0-9]+)$')
 section_regex = re.compile(r'^([0-9]+\.[0-9]+\.[0-9]+)(.*)$')
 citation_regex = re.compile(r'([0-9]+\.[0-9]+\.[0-9]+)')
 
+'''
+Deal with the index and tables!
+Stop at this phrase:
+
+STATUTORY REFERENCES
+FOR
+CALIFORNIA CITIES
+
+Also, maybe avoid overwriting the node.
+'''
+
 def chunk(fp):
     '''
     >>> chunk(open('tmp/volume1.txt'))
