@@ -3,7 +3,7 @@ import os, json
 from lib import chunk
 
 fp_out_all = open(os.path.join('tmp', 'chunks.json'), 'w')
-all_chunks = []
+all_chunks = {}
 for volume in ['volume1', 'volume2', 'planning']:
     fp_in  = open(os.path.join('tmp', volume + '.txt' ), 'r')
     fp_out = open(os.path.join('tmp', volume + '.json'), 'w')
