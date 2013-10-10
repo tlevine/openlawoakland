@@ -17,4 +17,4 @@ def ego():
     g_9_56_090 = nx.ego_graph(g, '9.56.090')
     nx.draw_spring(g_9_56_090)
     plt.savefig("9.56.090.png")
-    print nodes['9.56.090'
+    print nodes['9.56.090']
